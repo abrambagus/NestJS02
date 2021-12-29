@@ -2,12 +2,12 @@ import { Expose } from 'class-transformer';
 import {
   Column,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../auth/user.entity';
+import { PaginationResult } from '../pagination/paginator';
 import { Attendee } from './attendee.entity';
 
 @Entity()
@@ -55,3 +55,5 @@ export class Event {
   @Expose()
   attendeeAccepted?: number;
 }
+
+export type PaginatedEvents = PaginationResult<Event>;

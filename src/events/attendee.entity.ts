@@ -6,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { User } from '../auth/user.entity';
 import { Event } from './event.entity';
 
 export enum AttendeeAnswerEnum {
@@ -28,10 +29,19 @@ export class Attendee {
   @JoinColumn()
   event: Event;
 
+  @Column()
+  eventId: number;
+
   @Column('enum', {
     enum: AttendeeAnswerEnum,
     default: AttendeeAnswerEnum.Accepted,
   })
   @Expose()
   answer: AttendeeAnswerEnum;
+
+  @ManyToOne(() => User, (user) => user.attended)
+  user: User;
+
+  @Column()
+  userId: number;
 }
